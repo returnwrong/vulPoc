@@ -1,0 +1,43 @@
+id: rw-0x01-mapAPI
+
+info:
+  name: Map
+  author: returnwrong
+  severity: medium
+  description: 寻找网站中可能存在地图api——key泄露的网页，目前包含高德地图、百度地图、腾讯地图，漏洞不会利用的可参考https://www.freebuf.com/vuls/380521.html，该模板随手写可能存在误报的情况.
+  reference:
+    - https://
+  tags: tags
+
+http:
+  - raw:
+      - |+
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+        Accept: */*
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.141 Safari/537.36
+        Sec-Fetch-Site: cross-site
+        Sec-Fetch-Mode: cors
+        Sec-Fetch-Dest: empty
+        Accept-Encoding: gzip, deflate, br
+        Accept-Language: zh-CN,zh;q=0.9
+        Connection: close
+
+
+    matchers-condition: or
+    matchers:
+      - type: word
+        part: body
+        words:
+          - map.qq.com
+
+      - type: word
+        part: body
+        words:
+          - webapi.amap.com
+
+      - type: word
+        part: body
+        words:
+          - api.map.baidu.com
+ 
